@@ -1,0 +1,86 @@
+# control if the sequence is valid and count the nucletidia
+
+def DNAvalid(seq):
+    valid="ATCG"
+    for i in seq:
+        if i not in valid:
+            Valid=False
+            break
+        else:
+            Valid=True
+    if Valid:
+        A = seq.count("A")
+        T = seq.count("T")
+        G = seq.count("C")
+        C = seq.count("G")
+        print(f"The inserded DNA sequence is {seq}")
+        print(f"""The number of A is: {A}
+The number of T is: {T}
+The number of G is: {G}
+The number of C is: {C}
+               """)
+    else:
+        print("The inserded sequence is not valid!")
+
+#DNAvalid("TTGCCCAG")
+
+# control if seqtype is valid and return the sequnce until the nucleotidio
+def sequence(seqType, seq, nuc):
+    DNAlist = "ATCG"
+    RNAlist = "AUCG"
+#control if the seq is valid
+    if seqType == "DNA":
+        DNAtype = True
+        for i in seq:
+            if i not in DNAlist:
+                DNAtype = False
+
+        if DNAtype:
+            print("This Sequence is a DNA ")
+        else:
+            print("This Sequence is not a DNA ")
+
+    if seqType == "RNA":
+        RNAtype = True
+        for i in seq:
+            if i not in RNAlist:
+                RNAtype = False
+
+        if RNAtype:
+            print("This Sequence is a RNA ")
+        else:
+            print("This Sequence is not a RNA ")
+
+    index = seq.index(nuc)  # as which in R
+    for i in seq[index: ]:
+        print(i, end=" ")
+
+sequence(seqType="DNA", seq="AGTTGGAC", nuc="TTG")
+
+# Common
+
+list1 = [1,2,3,4,5,6]
+list2 = [3, 5, 7, 9]
+results=list(set(list1).intersection(list2))
+#print(results)
+
+def common_elements(list1, list2):
+    result = []
+    for element in list1:
+        if element in list2:
+            result.append(element)
+    return result
+#print(common_elements(list1, list2))
+
+# Non Common
+
+
+
+one_not_two = set(list1) - set(list2)
+two_not_one = set(list2) - set(list1)
+
+
+one_not_two.update(two_not_one)
+
+
+#print(one_not_two)
