@@ -84,3 +84,38 @@ one_not_two.update(two_not_one)
 
 
 #print(one_not_two)
+
+
+#or
+#from collections import Counter
+noukleotidiaDNA = ["A", "T", "G", "C"]
+noukleotidiaRNA= ["A", "U", "G", "C"]
+
+DNA_RNAlist=input("Give your DNA or RNA list ")
+def splitlist(word):
+    return [char for char in word]
+
+
+def DNAseq(DNA_RNAlist):
+    answer=input("Do you import a DNA list (ja or no) ? ")
+    if answer=="ja":
+        DNA_RNAlist = splitlist(DNA_RNAlist)
+        for item in DNA_RNAlist:
+            if item not in noukleotidiaDNA:
+                print("The Dna Sequencing is not valid. Important Information: Capital Letter must be used!! ")
+            else:
+                counter = Counter(DNA_RNAlist)
+                return (counter)
+    else:
+        DNA_RNAlist= splitlist(DNA_RNAlist)
+        for item in DNA_RNAlist:
+            if item not in noukleotidiaRNA:
+                print("The RNA Sequencing is not valid (maybe T instead of U). Important Information: Capital Letter "
+                      "must be used!! ")
+            else:
+                counter = Counter(DNA_RNAlist)
+                return (counter)
+
+print(DNAseq(DNA_RNAlist))
+
+input("exit")
