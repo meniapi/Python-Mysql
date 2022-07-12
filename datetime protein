@@ -1,0 +1,62 @@
+
+import datetime
+
+theproteinexample= str(input("Give me tha name of the protein  :"))
+date= int(input('Give me the date of the protein discovery in format YYYY/MM/DD:'))
+#kalw tin vivliothiki datetime
+
+tday=datetime.date.today()
+
+finalday= datetime.date(2022, 12, 31)
+
+period= ((finalday-tday)*365*24)
+#tipwnw tis ores kai to minima "The protein is known for, "period", hours"
+print("The protein is known for", period,  "hours" )
+
+
+discoveryyear = int(input('Give me the year of protein discovery:'))
+
+if(discoveryyear%400==0 or (discoveryyear%4==0 and discoveryyear%100!=0)):
+    print('The year is leap')
+else:
+    print('The year is not leap')
+
+
+theprotein= str(input("Give me the name of the protein  :"))
+
+weight_pr= int(input("Give me the weigh of protein in grams as a 1st mesurement: "))
+#antistoixa sti 2i metrisi
+weight2_pr= int(input("Give me the weigh of protein in grams as a 2nd mesurement: "))
+#thetw mia lista mou gia tis dio metrisis tis 1is proteinis
+List = [weight_pr, weight2_pr]
+
+
+theproteint2= str(input("Give me the name of the protein2  :"))
+weight_pr2= int(input("Give me the weigh of protein2 in grams as a 1st mesurement: "))
+weight2_pr2= int(input("Give me the weigh of protein2 in grams as a 2nd mesurement: "))
+List2 = [weight_pr2, weight2_pr2]
+
+
+L3= List + List2
+
+
+for i in range(0, len(L3)):
+
+    if any(index == 10 for index in L3):
+        print("There is a measurement of 10 gr protein in the above lists ")
+    else:
+        print("There is no measurement asked in the above lists")
+
+
+theprotein3= str(input("Give me the name of the protein3  :"))
+weight_pr3= int(input("Give me the weigh of protein3 in grams as a 1st mesurement: "))
+weight2_pr3= int(input("Give me the weigh of protein3 in grams as a 2nd mesurement: "))
+List3 = [weight_pr3, weight2_pr3]
+L3= L3 + List3
+
+
+del L3[0:1]
+print("Give me the new L3 after deleting measurements of 1st protein", L3)
+
+L3.reverse()
+print("Give me the L3 reversed", L3)
