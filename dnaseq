@@ -1,0 +1,108 @@
+import mysql.connector as MariaDB
+import mysqlx
+
+mydb = MariaDB.connect(host='localhost', user='root', passwd="", db="test")
+
+
+mycursor = mydb.cursor()
+
+# create the table
+Table = ("CREATE TABLE NucleoTBL (seq_id VARCHAR(255), seq_year VARCHAR(255), seq VARCHAR(255), seq_type VARCHAR(255))")
+
+mycursor.execute(Table)
+
+class NucleoCLS:
+
+    def __init__(self, seq_id, seq_year, seq, seq_type):
+        self.seq_id = seq_id
+        self.seq_year = seq_year
+        self.seq = seq
+        self.seq_type = seq_type
+
+    def Validatetype_seq(self):
+        if (self.seq_type == "DNA" or self.seq_type == "RNA"):
+            return True
+        else:
+            return False
+
+    def Validateseq(self):
+        if (self.seq_type == "DNA"):
+            valid = "ACGT"
+            if (all(i in valid for i in self.seq)):
+                return True
+            else:
+                return False
+        else:
+            valid = 'ACGU'
+            if (all(i in valid for i in self.seq)):
+                return True
+            else:
+                return False
+
+    def show_info(self):
+        print("The id is: %s" % (self.seq_id))
+        print("The type is: %s" % (self.seq_type))
+        print("The seq is: %s" % (self.seq))
+        print("The year is: %s" % (self.seq_year))
+
+    def menu(self):
+        print("Select one of the below option:")
+        print("1 for new Record")
+        print("2 to update your exist Record")
+        print("3 to print your Record")
+        print("4 for Exit")
+
+
+    def MenuOption(select):
+        switcher = {
+            1: "1",
+            2: "2",
+            3: "3",
+            4: "4"
+        }
+        output = switcher.get(select, "Invalid selection")
+        if not (output == "Invalid selection"):
+            return select
+
+
+select = int(input("Insert the Menu Option : "))
+TheOption = NucleoCLS.MenuOption(select)
+
+if (TheOption == 1):
+    seqId = input("insert the id number: ")
+    seqYear = input("insert the year of your sequence: ")
+    seqtype = input("insert the type of the sequence (DNA or RNA): ")
+    sequence = input("insert the RNA/DNA sequence: ")
+    if (NucleoCLS(seqId,seqYear, seqtype,sequence).Validateseq()):
+        statement = "INSERT INTO BioSequence (seqId, seqYear, seqtype,sequence) VALUES('seqId', 'seqYear',seqtype, 'sequence')"
+        mycursor.execute(statement)
+        mydb.commit()
+        print("Record is inserted!!!! ")
+    else:
+        print("Record is incorrect")
+
+if (TheOption == 2):
+    ID = input("Please, enter the ID : ")
+    try:
+      deleteOption = (f"DELETE FROM NucleoTBL WHERE seq_id={ID} ")
+      mycursor.execute(deleteOption)
+      mydb.commit()
+      print("The entered ID is deleted!!!!")
+    except mysqlx.Error:
+        print("Id is not entered. Something was Wrong!!!")
+
+if (TheOption == 3):
+    ID = input("Please, enter the ID : ")
+    stm = "select	*	from	NucleoTBL	WHERE seq_id LIKE	'%s'" % ID
+    mycursor.execute(stm)
+    Fetchall = mycursor.fetchall()
+    print(Fetchall)
+
+    NucleoCLS(Fetchall[0][0], Fetchall[0][1], Fetchall[0][2], Fetchall[0][3]).show_info()
+
+if (TheOption == 4):
+    stm = "select	*	from	NucleoTBL "
+    mycursor.execute(stm)
+    Fetchall = mycursor.fetchall()
+    print(Fetchall)
+
