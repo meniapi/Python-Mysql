@@ -3,14 +3,14 @@ import datetime
 
 theproteinexample= str(input("Give me tha name of the protein  :"))
 date= int(input('Give me the date of the protein discovery in format YYYY/MM/DD:'))
-#kalw tin vivliothiki datetime
+
 
 tday=datetime.date.today()
 
 finalday= datetime.date(2022, 12, 31)
 
 period= ((finalday-tday)*365*24)
-#tipwnw tis ores kai to minima "The protein is known for, "period", hours"
+
 print("The protein is known for", period,  "hours" )
 
 
