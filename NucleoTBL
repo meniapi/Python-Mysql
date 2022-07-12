@@ -1,0 +1,54 @@
+
+#Connect to Mysql
+
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="*****",
+  database="Ptest
+)
+mycursor = mydb.cursor()
+
+
+# Create the table with the name NucleoTBL
+
+#mycursor.execute("CREATE TABLE align (id int(255), seq1 VARCHAR(255), seq2  VARCHAR(255), score int(255))")
+
+#Insert records
+
+Record = "INSERT INTO align (id , seq1 ,seq2 , score  ) VALUES (%s, %s,%s, %s)"
+Index = [("05","TATCCAG","TTGCC","1"),
+         ("04","ATGAT","CCATG","7")]
+mycursor.executemany(Record, Index)
+
+mydb.commit()
+
+# #or
+
+# seqId = input("insert the id number: ")
+# seq1 = input("insert the seq1 : ")
+# seq2= input("insert the seq2 (DNA or RNA): ")
+# Score = input("insert the Score: ")
+
+# RecordInsert= [seqId, seq1, seq2, Score]
+# mycursor.execute(Record,RecordInsert)
+# mydb.commit()
+
+
+# print the result of align database with a score>10
+statement = "select	*	from	align	WHERE Score>10 "
+mycursor.execute(statement)
+results = mycursor.fetchall()
+print(results)
+
+#Delete a index from the database
+
+Delete=(f"DELETE FROM align WHERE id > 4 ")
+mycursor.execute(Delete)
+mydb.commit()
+print("The entered ID is deleted!!!!")
+
+#close the connection
+mydb.close()
